@@ -30,7 +30,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     static associate(models: any) {
       User.hasOne(models.Session)
     }
-  };
+  }
 
   User.init({
     id: {
