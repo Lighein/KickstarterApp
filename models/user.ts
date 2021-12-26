@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-  Model
+  Model, UUIDV4
 }  from 'sequelize';
 
 interface UserAttributes {
@@ -28,9 +28,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         isAdmin!: boolean;
 
     static associate(models: any) {
-      User.hasOne(models.Session)
+      User.hasOne(models.Sessions)
+      User.hasMany(models.Products)
     }
-  };
+  }
 
   User.init({
     id: {
@@ -42,36 +43,36 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     email: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     password: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     firstName: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     lastName: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     age: {
       allowNull: true,
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
     },
     country: {
       allowNull: true,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
     },
-}, {
-sequelize,
-modelName: 'User',
-});
-return User;
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
 };
 
 
