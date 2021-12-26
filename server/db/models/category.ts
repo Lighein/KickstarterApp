@@ -14,16 +14,16 @@ module.exports = (sequelize: any, DataTypes: any) => {
       name!: string;
 
     static associate(models: any) {
-      Category.hasMany(models.Products)
+      Category.hasMany(models.Products);
+      Category.hasMany(models.Sessions)
     }
   };
   Category.init({
       id: {
         allowNull: false,
-        autoIncrement: false,
+        autoIncrement: true,
         primaryKey: true,
-        defaultValue: UUIDV4,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         unique: true,
       },
       name: {

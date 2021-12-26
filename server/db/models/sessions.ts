@@ -4,7 +4,6 @@ import {
 
 interface SessionsAttributes {
     id: number;
-    // UserId: number;
     total: number;
     status: string;
     date: Date;
@@ -14,38 +13,29 @@ module.exports = (sequelize: any, DataTypes: any) => {
   class Sessions extends Model<SessionsAttributes> 
     implements SessionsAttributes{
       id!: number;
-      // UserId!: number;
       total!: number;
       status!: string;
       date!: Date;
 
     static associate(models: any) {
-      Sessions.belongsTo(models.User);
       Sessions.belongsToMany(models.Products, {
         through: 'Cart'
       });
+      Sessions.belongsTo(models.User);
     }
   };
 
   Sessions.init({
     id: {
       allowNull: false,
-      autoIncrement: false,
+      autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
-      unique: true,
     },
-    // UserId: {
-    //   allowNull: false,
-    //   type: DataTypes.UUIDV4,
-    //   references: {
-    //     model: 'User',
-    //     key: 'id',
-    //   }
-    // },
     total: {
       allowNull: false,
       type: DataTypes.FLOAT,
+      defaultValue: 0,
     },
     status: {
       allowNull: false,
@@ -55,6 +45,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     date: {
       allowNull: true,
+      defaultValue: Date.now(),
       type: DataTypes.DATE,
     },
   }, {

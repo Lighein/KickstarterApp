@@ -4,8 +4,6 @@ import {
 
 interface ProductsAttributes {
   id: number;
-  // UserId: number;
-  // CategoryId: number;
   created: Date;
   status: string;
   name: string;
@@ -17,8 +15,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
   class Products extends Model<ProductsAttributes> 
     implements ProductsAttributes{
       id!: number;
-      // UserId!: number;
-      // CategoryId!: number;
       created!: Date;
       status!: string;
       name!: string;
@@ -26,11 +22,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
       total_amount!: number;
 
     static associate(models: any) {
-      // Products.belongsTo(models.User);
-      // Products.belongsTo(models.Category);
-      // Products.belongsToMany(models.Sessions, {
-      //   through: 'Cart'
-      // });
+      Products.belongsToMany(models.Sessions, {
+        through: 'Cart'
+      });
+      Products.belongsTo(models.User);
+      Products.belongsTo(models.Category);
     }
   };
 
@@ -39,23 +35,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
+        autoIncrement: true,
       },
-      // UserId: {
-      //   allowNull: false,
-      //   type: DataTypes.UUID,
-      //   references: {
-      //     model: 'User',
-      //     key: 'id',
-      //   }
-      // },
-      // CategoryId: {
-      //   allowNull: false,
-      //   type: DataTypes.INTEGER,
-      //   references: {
-      //     model: 'Category',
-      //     key: 'id',
-      //   }
-      // },
       created: {
         allowNull: false,
         type: DataTypes.DATE,
