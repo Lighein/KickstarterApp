@@ -5,8 +5,6 @@ import {
 interface CartAttributes {
   id: number;
   amount: number;
-  ProductId: number;
-  SessionId: number;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -14,8 +12,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
     implements CartAttributes{
       id!: number;
       amount!: number;
-      ProductId!: number;
-      SessionId!: number;
 
     static associate(models: any) {
     }
@@ -32,20 +28,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       defaultValue: 0,
       type: DataTypes.FLOAT,
     },
-    ProductId: { 
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Products',
-        key: 'id'
-      }},
-    SessionId: { 
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Sessions',
-        key: 'id'
-      }},
   }, {
     sequelize,
     modelName: 'Cart',

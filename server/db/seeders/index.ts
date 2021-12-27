@@ -6,20 +6,20 @@ import {sessions} from './session';
 import {category} from './category'
 
 const seed = () => {
-  users.map(user => {
-    db.User.create(user);
+  users.map(async user => {
+    await db.User.create(user);
   });
-  category.map(category => {
-    db.Category.create(category);
+  category.map(async category => {
+    await db.Category.create(category);
   });
-  sessions.map(session => {
-    db.Sessions.create(session);
+  sessions.map(async session => {
+    await db.Sessions.create(session);
   }); 
-  products.map(product => {
-    db.Products.create(product);
+  products.map(async product => {
+    await db.Products.create(product);
   });
-  carts.map(cart => {
-    db.Cart.create(cart);
+  carts.map(async cart => {
+    await db.Cart.create(cart);
   });
 }
 seed();
