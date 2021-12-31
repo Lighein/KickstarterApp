@@ -1,9 +1,9 @@
-const {db} =require( '../models');
 import {users} from './users';
 import {products} from './products';
 import {carts} from './sessioncart';
 import {sessions} from './session';
 import {category} from './category'
+import db from '../models'
 
 const seed = () => {
   users.map(async user => {
@@ -22,4 +22,5 @@ const seed = () => {
     await db.Cart.create(cart);
   });
 }
-seed();
+
+export default seed;

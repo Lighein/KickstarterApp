@@ -21,7 +21,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..','public/index.html'))
 });
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV !== 'test') console.error(err.stack)
   res.status(err.status || 500).send(err.message || 'Internal server error')
 })

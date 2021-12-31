@@ -1,8 +1,9 @@
 import express from 'express';
-const router = express.Router();
 import db from '../db/models';
 import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express';
+
+const router = express.Router();
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
