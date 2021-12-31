@@ -1,10 +1,12 @@
 import express from 'express';
 const router = express.Router();
 import db from '../db/models';
+import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express';
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.body)
     res.send({ token: await db.User.authenticate(req.body)})
   } catch (err){
     next(err);
@@ -32,4 +34,4 @@ router.get('/me', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-export default router;
+module.exports = router;

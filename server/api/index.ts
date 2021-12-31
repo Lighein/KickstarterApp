@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.use("/category", require('./routes/category'));
 router.use("/products", require('./routes/products'));
+router.use("/user", require('./routes/user'));
 
 router.use((req: Request, res: Response, next: NextFunction) => {
   const err: any = new Error('API route not found!')
