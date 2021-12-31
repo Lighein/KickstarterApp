@@ -1,4 +1,4 @@
-import db from '../models'
+const {db} =require( '../models');
 import {users} from './users';
 import {products} from './products';
 import {carts} from './sessioncart';

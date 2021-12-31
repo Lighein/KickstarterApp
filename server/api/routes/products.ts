@@ -1,7 +1,7 @@
 import express from 'express';
 import { NextFunction, Request, Response } from 'express';
 const router = express.Router();
-import requireUser from '../../middleware';
+//import requireUser from '../../middleware';
 import db from '../../db/models';
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
