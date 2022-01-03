@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,18 +12,33 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
+import { useAppSelector, useAppDispatch } from "../redux/hooks"
+import { authenticate } from "../redux/reducers/user";
+import history from "../history";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import store, {AppDispatch} from "../redux/index"
+import { useDispatch } from 'react-redux';
 const theme = createTheme();
 
 export default function LogIn() {
-  const handleSubmit =  (event: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useAppDispatch();
+
+  let incorrect = false;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    //const data = new FormData(event.currentTarget);
+      const email = event.currentTarget.email.value;
+      const password = event.currentTarget.password.value;
+      const auth = dispatch<any>(authenticate({ email, password }, "login"));
+     if (auth.type === "auth/fulfilled") {
+      history.push("/product");
+    }
+    if (auth.type === "auth/rejected") {
+      incorrect = true;
+      history.push("/login");
+    }
   };
 
   return (
@@ -101,13 +116,18 @@ export default function LogIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link variant="body2" component="button" onClick = {()=>history.push("/signup")}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
             </Box>
           </Box>
+          {incorrect && <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert variant="outlined" severity="error">
+          This is an error alert — E-mail or password is incorrect!
+        </Alert>
+      </Stack>}
         </Grid>
       </Grid>
     </ThemeProvider>

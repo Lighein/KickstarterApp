@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req)
     res.send({ token: await db.User.authenticate(req.body)})
   } catch (err){
     next(err);
