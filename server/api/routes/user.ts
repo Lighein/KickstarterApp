@@ -1,12 +1,12 @@
 import express from 'express';
 import { NextFunction, Request, Response } from 'express';
+
+//import requireUser from '../../middleware';
+import db from '../../db/models';
 const router = express.Router();
 
-import requireUser from '../../middleware';
-import db from '../../db/models';
-
-
-router.get('/', requireUser, async (req: Request, res: Response, next: NextFunction) => {
+//requireUser
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     console.log(req);
     res.send(
@@ -24,8 +24,8 @@ router.get('/', (req, res) => {
       }
   }).then((result: object) => res.json(result)).catch((err: object) => console.error(err));
 })
-
-router.put('/', requireUser, async (req, res, next) => {
+//requireUser,
+router.put('/',  async (req, res, next) => {
   try {
     const user = await db.User.findByPk(req.body.user.id);
     res.send(await user.update(req.body));

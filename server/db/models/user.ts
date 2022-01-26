@@ -1,13 +1,12 @@
 'use strict';
 
 import {
-  Model, UUIDV4
+  Model
 }  from 'sequelize';
 
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import axios from 'axios';
 import db from '../models';
 
 
@@ -39,8 +38,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     correctPassword!: (candidatePwd: any) => any;
     generateToken!: () => any;
 
-    static authenticate = async ({ email, password })=>{
-      console.log(email, password);
+    static authenticate = async (credentials: any)=>{
+      const { email, password} = credentials;
       const user = await this.findOne({where: { email }});
       console.log(user)
       if (!user || !(await user.correctPassword(password))) {

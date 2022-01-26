@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export const products = [
   {
     created: "2021-12-22",
